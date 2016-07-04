@@ -1,4 +1,4 @@
-# WP Plugin Uninstall Scanner
+# WP Plugin Uninstall Scanner [![Build Status](https://travis-ci.org/JDGrimes/wp-plugin-uninstall-tester.svg?branch=master)](https://travis-ci.org/JDGrimes/wp-plugin-uninstall-tester)
 
 Scans a WordPress plugin to determine what things it needs to do when it is uninstalled.
 
