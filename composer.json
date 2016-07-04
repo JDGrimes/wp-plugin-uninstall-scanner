@@ -1,0 +1,28 @@
+{
+    "name": "jdgrimes/wp-plugin-uninstall-scanner",
+    "description": "Scans a WordPress plugin to determine what things it needs to do when it is uninstalled",
+    "keywords": ["WordPress", "plugin", "uninstall"],
+    "homepage": "http://github.com/JDGrimes/wp-plugin-uninstall-scanner",
+    "type": "library",
+    "license": "MIT",
+    "authors":[
+        {
+            "name": "J.D. Grimes",
+            "email": "jdg@codesymphony.co",
+            "homepage": "http://codesymphony.co"
+        }
+    ],
+    "minimum-stability": "stable",
+
+    "require": {
+        "nikic/php-parser": "^2.1",
+        "symfony/console": "^3.1",
+        "psr/log": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WP_Plugin_Uninstall_Scanner\\": "src/"
+        }
+    },
+    "bin": [ "bin/wppus" ]
+}
