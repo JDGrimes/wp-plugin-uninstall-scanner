@@ -11,9 +11,9 @@ composer require --dev jdgrimes/wp-plugin-uninstall-scanner
 ## Usage
 
 ```bash
-vendor/bin/wppus -vv run
+vendor/bin/wppus run
 ```
 
 ## Description
 
-This is a WIP.
+This is a work in progress.

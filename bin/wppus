@@ -11,9 +11,18 @@ namespace WP_Plugin_Uninstall_Scanner\Console;
 require __DIR__ . '/../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
+use WP_Plugin_Uninstall_Scanner\Formatter\Markdown;
+use WP_Plugin_Uninstall_Scanner\Formatters;
+
+$formatters = new Formatters();
+$formatters->add( 'markdown', new Markdown() );
 
 $application = new Application();
-$application->add( new Command\Run() );
+
+$run = new Command\Run();
+$run->setFormatters( $formatters );
+
+$application->add( $run );
 $application->run();
 
 // EOF

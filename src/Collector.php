@@ -30,11 +30,13 @@ class Collector {
 	 * @param      $function
 	 * @param Node $node
 	 */
-	public function add( $item, $function, Node $node ) {
+	public function add( $type, $item, $function, Node $node ) {
+
 		$this->items[] = [
-			'item' => $item,
+			'item'     => $item,
+			'type'     => $type,
 			'function' => $function,
-			'node' => $node
+			'node'     => $node,
 		];
 	}
 

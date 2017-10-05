@@ -54,7 +54,7 @@ class Config {
 			'arg'  => 0,
 		],
 		'set_site_transient' => [
-			'type' => 'site_transient',
+			'type' => 'network_transient',
 			'arg'  => 0,
 		],
 		'add_user_meta' => [
@@ -110,7 +110,7 @@ class Config {
 			'arg'  =>  0,
 		]
 	];
-	
+
 	public function get_functions() {
 		return $this->functions;
 	}

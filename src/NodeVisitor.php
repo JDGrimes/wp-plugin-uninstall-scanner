@@ -13,7 +13,7 @@ use PhpParser\Node;
 use PhpParser\NodeVisitorAbstract;
 
 class NodeVisitor extends NodeVisitorAbstract {
-	
+
 	protected $collector;
 	protected $functions;
 
@@ -74,9 +74,9 @@ class NodeVisitor extends NodeVisitorAbstract {
 
 			// Replace multiple wildcards in a row with a single wildcard.
 			$value = preg_replace( "/{$this->wildcard}+/", $this->wildcard, $value );
-		
+
 		} elseif ( $arg->value instanceof Node\Expr\BinaryOp\Concat ) {
-			
+
 			$value = $this->get_string_from_concat( $arg->value );
 			$value = preg_replace( "/{$this->wildcard}+/", $this->wildcard, $value );
 
@@ -85,7 +85,7 @@ class NodeVisitor extends NodeVisitorAbstract {
 			$value = $this->wildcard;
 		}
 
-		$this->collector->add( $value, $function_name, $node );
+		$this->collector->add( $function_data['type'], $value, $function_name, $node );
 	}
 
 	/**
@@ -98,7 +98,7 @@ class NodeVisitor extends NodeVisitorAbstract {
 	 * @return string
 	 */
 	protected function get_string_from_concat( Node\Expr\BinaryOp\Concat $concat ) {
-		
+
 		$value = '';
 
 		if ( $concat->left instanceof Node\Scalar\String_ ) {

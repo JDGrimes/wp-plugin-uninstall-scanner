@@ -1,7 +1,7 @@
 <?php
 
 /**
- * .
+ * Scanner class.
  *
  * @package WP_Plugin_Uninstall_Scanner
  * @since   0.1.0
@@ -17,7 +17,7 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
 /**
- * Class Scanner
+ * Scans a codebase for uninstallable elements.
  *
  * @package WP_Plugin_Uninstall_Scanner
  * @since   0.1.0
@@ -83,6 +83,15 @@ class Scanner {
 		);
 	}
 
+	/**
+	 * Scan a file or directory.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $path The full path of the file or directory to scan.
+	 *
+	 * @return Collector A collection of the results.
+	 */
 	public function scan( $path ) {
 
 		if ( is_file( $path ) ) {
@@ -94,13 +103,20 @@ class Scanner {
 		return $this->collector;
 	}
 
-	protected function scan_file( $file_name ) {
+	/**
+	 * Scans a file.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $file The full path of the file to scan.
+	 */
+	protected function scan_file( $file ) {
 
 		try {
 
-			$this->logger->info( 'Scanning ' . $file_name );
-			
-			$code = file_get_contents( $file_name );
+			$this->logger->info( 'Scanning ' . $file );
+
+			$code = file_get_contents( $file );
 
 			$this->traverser->traverse( $this->parser->parse( $code ) );
 
@@ -108,14 +124,21 @@ class Scanner {
 
 			$this->logger->error( 'Parse Error: ' . $e->getMessage() );
 		}
-		
-		foreach ( $this->collector->get() as $result ) {
-			$this->logger->notice( $result['function'] . '(): ' . $result['item'] );
-		}
-		
-		$this->collector->reset();
+//
+//		foreach ( $this->collector->get() as $result ) {
+//			$this->logger->notice( $result['function'] . '(): ' . $result['item'] );
+//		}
+//
+//		$this->collector->reset();
 	}
 
+	/**
+	 * Scans a directory.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $path The full path of the directory to scan.
+	 */
 	protected function scan_directory( $path ) {
 
 		$directory = new RecursiveDirectoryIterator(
