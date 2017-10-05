@@ -48,18 +48,18 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase {
 			$traverser->traverse( $stmts );
 
 			$found = $collector->get();
-			
+
 			foreach ( $found as &$item ) {
-				unset( $item['node'] );
+				unset( $item['node'], $item['file'] );
 			}
-			
+
 			$this->assertEquals( $this->expectations(), $found );
 
 		} catch ( Error $e ) {
 			echo 'Parse Error: ', $e->getMessage();
 		}
 	}
-	
+
 	abstract public function expectations();
 }
 
