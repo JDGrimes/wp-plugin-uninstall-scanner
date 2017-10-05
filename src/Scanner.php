@@ -116,6 +116,8 @@ class Scanner {
 
 			$this->logger->info( 'Scanning ' . $file );
 
+			$this->collector->setFile( $file );
+
 			$code = file_get_contents( $file );
 
 			$this->traverser->traverse( $this->parser->parse( $code ) );
@@ -124,12 +126,6 @@ class Scanner {
 
 			$this->logger->error( 'Parse Error: ' . $e->getMessage() );
 		}
-//
-//		foreach ( $this->collector->get() as $result ) {
-//			$this->logger->notice( $result['function'] . '(): ' . $result['item'] );
-//		}
-//
-//		$this->collector->reset();
 	}
 
 	/**

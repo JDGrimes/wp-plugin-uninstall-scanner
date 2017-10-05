@@ -96,6 +96,8 @@ class Run extends Command {
 			return;
 		}
 
+		$formatter->setPath( $path );
+
 		$config  = new Config;
 		$logger  = new ConsoleLogger( $output );
 		$scanner = new Scanner( $config, $logger );

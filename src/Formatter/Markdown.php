@@ -9,6 +9,7 @@
 
 namespace WP_Plugin_Uninstall_Scanner\Formatter;
 
+use PhpParser\Node;
 use WP_Plugin_Uninstall_Scanner\Collector;
 
 /**
@@ -20,6 +21,22 @@ use WP_Plugin_Uninstall_Scanner\Collector;
 class Markdown implements Formatter {
 
 	/**
+	 * The path being scanned.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @var string
+	 */
+	protected $path;
+
+	/**
+	 * @since 0.1.0
+	 */
+	public function setPath( $path ) {
+		$this->path = $path;
+	}
+
+	/**
 	 * @since 0.1.0
 	 */
 	public function format( Collector $collector ) {
@@ -29,7 +46,7 @@ class Markdown implements Formatter {
 		$results = [];
 
 		foreach ( $collector->get() as $element ) {
-			$results[ $element['type'] ][ $element['item'] ] = $element['item'];
+			$results[ $element['type'] ][ $element['item'] ][] = $element;
 		}
 
 		ksort( $results );
@@ -47,14 +64,23 @@ class Markdown implements Formatter {
 
 			ksort( $items );
 
-			$items = array_unique( $items );
+			foreach ( $items as $item => $elements ) {
 
-			foreach ( $items as $item ) {
 				$output .= "- `{$item}`\n";
+
+				foreach ( $elements as $element ) {
+
+					/** @var Node $node */
+					$node = $element['node'];
+
+					$output .= "  - `{$element['file']}:{$node->getLine()}` \n";
+				}
 			}
 
 			$output .= "\n";
 		}
+
+		$output = str_replace( $this->path, '', $output );
 
 		return $output;
 	}

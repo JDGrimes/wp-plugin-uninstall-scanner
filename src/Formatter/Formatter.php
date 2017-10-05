@@ -20,6 +20,15 @@ use WP_Plugin_Uninstall_Scanner\Collector;
 interface Formatter {
 
 	/**
+	 * Set the path being scanned.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $path The full path being scanned.
+	 */
+	public function setPath( $path );
+
+	/**
 	 * Formats the list of uninstallable elements.
 	 *
 	 * @since 0.1.0
